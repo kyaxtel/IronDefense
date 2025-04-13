@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
 {
     public float health = 5f;
     public float speed = 2f;
+    public int resourceDropAmount = 10; // How many resources this enemy will drop
     public EnemyType enemyType;
     public bool isLead;
 
@@ -35,11 +36,21 @@ public class Enemy : MonoBehaviour
     }
 
     protected virtual void Die() {
+        // Add resources when the enemy dies
+        ResourceManager.Instance.AddResources(resourceDropAmount);
         Destroy(gameObject);
     }
 
     void Update()
     {
         transform.Translate( Vector3.left * speed * Time.deltaTime );    
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Defender defender = other.GetComponent<Defender>();
+        if(defender != null) {
+            defender.TakeDamage(1f); // You can customize how much damage enemies deal
+        }
     }
 }
