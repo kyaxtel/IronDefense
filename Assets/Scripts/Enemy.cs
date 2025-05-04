@@ -43,10 +43,10 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        transform.Translate( Vector3.left * speed * Time.deltaTime );
+        transform.Translate( Vector3.forward * speed * Time.deltaTime );
 
         // If the enemy goes off the screen (left side)
-        if (transform.position.x < -2f) { // adjust based on your camera size    
+        if (transform.position.x < -10f) { // adjust based on your camera size    
             PlayerHealthManager.Instance.TakeDamage(1);
             Destroy(gameObject);
         }
@@ -58,13 +58,6 @@ public class Enemy : MonoBehaviour
             Defender defender = other.GetComponent<Defender>();
             if(defender != null) {
                 defender.TakeDamage(1); // You can customize how much damage enemies deal
-            }
-
-            Destroy(gameObject);
-        }
-        if (other.CompareTag("EndZone")) {
-            if(PlayerHealthManager.Instance != null) {
-                PlayerHealthManager.Instance.TakeDamage(1); // or however much damage you want
             }
 
             Destroy(gameObject);

@@ -38,8 +38,12 @@ public class RoundManager : MonoBehaviour
             }
 
             // Scale stats
-            enemy.scaledHealth = enemy.baseHealth + currentRound * 1.5f;
-            enemy.scaledSpeed = enemy.baseSpeed + currentRound * 0.2f;
+            if (enemy.baseHealth + currentRound * 1.5f < enemy.baseHealth + 10) {
+                enemy.scaledHealth = enemy.baseHealth + currentRound * 1.5f;
+            }
+            if (enemy.baseSpeed + currentRound * 0.2f < enemy.baseSpeed + 2f) {
+                enemy.scaledSpeed = enemy.baseSpeed + currentRound * 0.2f;
+            }
         }
     }
 
@@ -50,7 +54,7 @@ public class RoundManager : MonoBehaviour
             EnemySpawnData data = spawnPool[Random.Range(0, spawnPool.Count)];
             int lane = Random.Range(0, spawnPoints.Length);
 
-            GameObject enemyGO = Instantiate(data.enemyPrefab, spawnPoints[lane].position, Quaternion.identity);
+            GameObject enemyGO = Instantiate(data.enemyPrefab, spawnPoints[lane].position, Quaternion.Euler(0,-90,0));
             Enemy enemyScript = enemyGO.GetComponent<Enemy>();
 
             enemyScript.health = data.scaledHealth;

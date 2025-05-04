@@ -7,6 +7,7 @@ public class DefenderManager : MonoBehaviour
     public static DefenderManager Instance;
 
     public GameObject selectedDefenderPrefab;
+    private DefenderButton selectedButton;
 
     private void Awake() {
         Instance = this;
@@ -24,5 +25,16 @@ public class DefenderManager : MonoBehaviour
 
     public GameObject GetSelectedDefender() {
         return selectedDefenderPrefab;
+    }
+
+    public void UpdateSelectedButton(DefenderButton newButton)
+    {
+        if (selectedButton != null)
+        {
+            selectedButton.SetSelectedVisual(false);
+        }
+
+        selectedButton = newButton;
+        selectedButton.SetSelectedVisual(true);
     }
 }

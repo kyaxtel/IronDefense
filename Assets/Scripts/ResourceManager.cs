@@ -1,12 +1,12 @@
 using UnityEngine;
-using TMPro;
+using TMPro; // This is important for TextMeshProUGUI
 
-public class ResourceManager : MonoBehaviour 
+public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance;
 
-    public int currentResources = 100; // Starting resources, you can adjust this
-    public TextMeshProUGUI resourceText; // Reference to a UI text elemnet to show resources
+    public int currentResources = 100;
+    public TextMeshProUGUI resourceText; // Set this in the Inspector
 
     void Awake()
     {
@@ -18,28 +18,33 @@ public class ResourceManager : MonoBehaviour
 
     void Start()
     {
-        UpdateResourcesUI();
+        UpdateResourceUI();
     }
 
-    // Method to add resources
-    public void AddResources(int amount) {
-        currentResources += amount;
-        UpdateResourcesUI();
+    public int GetResources() {
+        return currentResources;
     }
 
-    // Method to subtract resources (e.g., when placing a defender)
-    public bool SpendResources(int amount) {
-        if (currentResources >= amount) {
+    public bool SpendResources(int amount)
+    {
+        if (currentResources >= amount)
+        {
             currentResources -= amount;
-            UpdateResourcesUI();
+            UpdateResourceUI();
             return true;
         }
-        return false; // Not enough resources
+        return false;
     }
 
-    private void UpdateResourcesUI() {
-        if (resourceText != null) {
-            resourceText.text = "Resources: " + currentResources.ToString();
-        }
+    public void AddResources(int amount)
+    {
+        currentResources += amount;
+        UpdateResourceUI();
+    }
+
+    public void UpdateResourceUI()
+    {
+        if (resourceText != null)
+            resourceText.text = "Resources: " + currentResources;
     }
 }

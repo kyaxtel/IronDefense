@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   speed: 2
-  resourceDropAmount: 10
+  resourceDropAmount: 50
   enemyType: 2
   isLead: 0
   shield: 3
